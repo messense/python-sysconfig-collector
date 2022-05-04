@@ -42,7 +42,9 @@ def main():
 
             # on macOS the sysconfig we care about are the same on x86_64 and aarch64
             # so we can just duplicate it
-            if os == "macos":
+            #
+            # Note that pypy doesn't support aarch64 macOS yet
+            if os == "macos" and impl != "pypy":
                 if arch == "x86_64":
                     well_known["aarch64"].append(metadata)
                 elif arch == "aarch64":

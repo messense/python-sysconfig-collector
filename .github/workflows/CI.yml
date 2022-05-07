@@ -8,8 +8,31 @@ on:
   workflow_dispatch:
 
 jobs:
-  collect:
-    name: Collect sysconfig
+  linux:
+    name: Collect Linux sysconfig
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dbhi/qus/action@main
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+      - name: Generate sysconfig.json
+        run: |
+          python3 generate_manylinux.py
+          cat sysconfig-*.json
+      - name: Create Pull Request
+        if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
+        uses: peter-evans/create-pull-request@v4
+        with:
+          delete-branch: true
+          add-paths: |
+            sysconfig-*.json
+          title: 'Update sysconfig for Linux'
+          commit-message: 'Update sysconfig for Linux'
+
+  macos:
+    name: Collect macOS sysconfig
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3

@@ -17,10 +17,21 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: "3.10"
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build armv7l docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          platforms: linux/arm/v7
+          load: true
+          tags: python-armv7l:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       - name: Generate sysconfig.json
         run: |
           python3 generate_manylinux.py
-          cat sysconfig-*.json
+          cat sysconfig-linux.json
       - name: Create Pull Request
         if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
         uses: peter-evans/create-pull-request@v4
@@ -63,7 +74,7 @@ jobs:
       - name: Generate sysconfig.json
         run: |
           python3 generate_sysconfig.py
-          cat sysconfig-*.json
+          cat sysconfig-macos.json
       - name: Create Pull Request
         if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
         uses: peter-evans/create-pull-request@v4

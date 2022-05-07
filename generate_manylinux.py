@@ -18,7 +18,7 @@ PY_VERS = [
 ]
 
 
-def main():
+def manylinux():
     well_known = defaultdict(list)
     cwd = os.getcwd()
     for arch in ARCHES:
@@ -48,7 +48,49 @@ def main():
             for key in ["system", "platform"]:
                 metadata.pop(key, None)
             well_known[arch].append(metadata)
+    return well_known
 
+
+def armv7l():
+    docker_image = "python-armv7l"
+    pythons = [
+        "python3.6",
+        "python3.7",
+        "python3.8",
+        "python3.9",
+        "python3.10",
+        "pypy3",
+    ]
+    cwd = os.getcwd()
+    sysconfig = {"armv7l": []}
+    for python in pythons:
+        command = [
+            "docker",
+            "run",
+            "--rm",
+            "-v",
+            f"{cwd}:/io",
+            "-w",
+            "/io",
+            docker_image,
+            python,
+            "/io/get_interpreter_metadata.py",
+        ]
+        try:
+            metadata = subprocess.check_output(command).decode().strip()
+        except subprocess.CalledProcessError as exc:
+            print(exc.output, file=sys.stderr)
+            raise
+        metadata = json.loads(metadata.splitlines()[-1])
+        for key in ["system", "platform"]:
+            metadata.pop(key, None)
+        sysconfig["armv7l"].append(metadata)
+    return sysconfig
+
+
+def main():
+    well_known = manylinux()
+    well_known.update(armv7l())
     with open("sysconfig-linux.json", "w") as f:
         f.write(json.dumps(well_known, indent=2))
 

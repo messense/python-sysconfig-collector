@@ -9,6 +9,7 @@ MAX_MINOR_VER = 10
 
 PY_IMPLS = ["python", "pypy"]
 ARCH_ALIAS = {
+    "amd64": "x86_64",
     "arm64": "aarch64",
 }
 OS_ALIAS = {

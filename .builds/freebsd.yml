@@ -1,0 +1,16 @@
+image: freebsd/latest
+packages:
+  - python
+  - python37
+  - python38
+  - python39
+  - python310
+sources:
+  - https://github.com/messense/python-sysconfig-collector
+tasks:
+  - generate: |
+      cd python-sysconfig-collector
+      python3 generate_sysconfig.py
+      cat sysconfig-freebsd.json
+artifacts:
+  - python-sysconfig-collector/sysconfig-freebsd.json

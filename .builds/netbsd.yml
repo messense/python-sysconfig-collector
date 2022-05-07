@@ -1,0 +1,15 @@
+image: netbsd/latest
+packages:
+  - python37
+  - python38
+  - python39
+  - python310
+sources:
+  - https://github.com/messense/python-sysconfig-collector
+tasks:
+  - generate: |
+      cd python-sysconfig-collector
+      python3.9 generate_sysconfig.py
+      cat sysconfig-netbsd.json
+artifacts:
+  - python-sysconfig-collector/sysconfig-netbsd.json

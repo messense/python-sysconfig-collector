@@ -119,6 +119,7 @@ jobs:
           python-version: "3.10"
       - name: Generate sysconfig.json
         run: |
+          py -l
           python3 generate_sysconfig.py
           cat sysconfig-win*.json
       - name: Create Pull Request

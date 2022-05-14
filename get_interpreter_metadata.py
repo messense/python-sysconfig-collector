@@ -22,7 +22,7 @@ else:
 metadata = {
     "major": sys.version_info.major,
     "minor": sys.version_info.minor,
-    "abiflags": sysconfig.get_config_var("ABIFLAGS"),
+    "abiflags": sysconfig.get_config_var("ABIFLAGS") or "",
     "interpreter": platform.python_implementation().lower(),
     "ext_suffix": ext_suffix,
     "abi_tag": (sysconfig.get_config_var("SOABI") or "-").split("-")[1] or None,

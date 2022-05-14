@@ -3,7 +3,7 @@
     {
       "major": 3,
       "minor": 6,
-      "abiflags": null,
+      "abiflags": "",
       "interpreter": "cpython",
       "ext_suffix": ".pyd",
       "abi_tag": null,
@@ -12,7 +12,7 @@
     {
       "major": 3,
       "minor": 7,
-      "abiflags": null,
+      "abiflags": "",
       "interpreter": "cpython",
       "ext_suffix": ".pyd",
       "abi_tag": null,
@@ -21,7 +21,7 @@
     {
       "major": 3,
       "minor": 8,
-      "abiflags": null,
+      "abiflags": "",
       "interpreter": "cpython",
       "ext_suffix": ".cp38-win_amd64.pyd",
       "abi_tag": null,
@@ -30,7 +30,7 @@
     {
       "major": 3,
       "minor": 9,
-      "abiflags": null,
+      "abiflags": "",
       "interpreter": "cpython",
       "ext_suffix": ".cp39-win_amd64.pyd",
       "abi_tag": null,
@@ -39,7 +39,7 @@
     {
       "major": 3,
       "minor": 10,
-      "abiflags": null,
+      "abiflags": "",
       "interpreter": "cpython",
       "ext_suffix": ".cp310-win_amd64.pyd",
       "abi_tag": null,
@@ -50,7 +50,7 @@
     {
       "major": 3,
       "minor": 7,
-      "abiflags": null,
+      "abiflags": "",
       "interpreter": "cpython",
       "ext_suffix": ".pyd",
       "abi_tag": null,
@@ -59,7 +59,7 @@
     {
       "major": 3,
       "minor": 8,
-      "abiflags": null,
+      "abiflags": "",
       "interpreter": "cpython",
       "ext_suffix": ".cp38-win32.pyd",
       "abi_tag": null,
@@ -68,7 +68,7 @@
     {
       "major": 3,
       "minor": 9,
-      "abiflags": null,
+      "abiflags": "",
       "interpreter": "cpython",
       "ext_suffix": ".cp39-win32.pyd",
       "abi_tag": null,
@@ -77,7 +77,7 @@
     {
       "major": 3,
       "minor": 10,
-      "abiflags": null,
+      "abiflags": "",
       "interpreter": "cpython",
       "ext_suffix": ".cp310-win32.pyd",
       "abi_tag": null,

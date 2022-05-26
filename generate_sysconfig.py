@@ -68,6 +68,15 @@ def main():
                         well_known["aarch64"].append(metadata)
                     elif arch == "aarch64":
                         well_known["x86_64"].append(metadata)
+                # Windows aarch64 uses `win_arm64` instead of `win_amd64` in ext_suffix
+                # Python only have official support for aarhc64 Windows on 3.11+
+                elif os == "windows" and impl != "pypy" and minor >= 11:
+                    if arch == "x86_64":
+                        arm64_metadata = metadata.copy()
+                        arm64_metadata["ext_suffix"] = arm64_metadata[
+                            "ext_suffix"
+                        ].replace("win_amd64", "win_arm64")
+                        well_known["aarch64"].append(arm64_metadata)
 
     with open(f"sysconfig-{os}.json", "w") as f:
         f.write(json.dumps(well_known, indent=2))

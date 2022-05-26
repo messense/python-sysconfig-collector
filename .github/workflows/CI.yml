@@ -40,6 +40,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           delete-branch: true
+          branch: update/linux
           add-paths: |
             sysconfig-*.json
           title: 'Update sysconfig for Linux'
@@ -86,6 +87,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           delete-branch: true
+          branch: update/macos
           add-paths: |
             sysconfig-*.json
           title: 'Update sysconfig for macOS'
@@ -132,6 +134,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           delete-branch: true
+          branch: update/windows
           add-paths: |
             sysconfig-*.json
           title: 'Update sysconfig for Windows'

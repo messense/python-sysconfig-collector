@@ -408,6 +408,15 @@
     },
     {
       "major": 3,
+      "minor": 11,
+      "abiflags": "",
+      "interpreter": "cpython",
+      "ext_suffix": ".cpython-311-arm-linux-gnueabihf.so",
+      "abi_tag": "311",
+      "pointer_width": 32
+    },
+    {
+      "major": 3,
       "minor": 8,
       "abiflags": "",
       "interpreter": "pypy",

@@ -105,17 +105,29 @@ jobs:
         with:
           python-version: "pypy-3.7"
           architecture: x64
-      - shell: bash
+      - name: Add PyPy 3.7 to PATH
+        shell: bash
         run: |
-          ls $pythonLocation
+          rm -rf $pythonLocation/python*.exe
+          echo $pythonLocation >> $GITHUB_PATH
       - uses: actions/setup-python@v3
         with:
           python-version: "pypy-3.8"
           architecture: x64
+      - name: Add PyPy 3.8 to PATH
+        shell: bash
+        run: |
+          rm -rf $pythonLocation/python*.exe
+          echo $pythonLocation >> $GITHUB_PATH
       - uses: actions/setup-python@v3
         with:
           python-version: "pypy-3.9"
           architecture: x64
+      - name: Add PyPy 3.9 to PATH
+        shell: bash
+        run: |
+          rm -rf $pythonLocation/python*.exe
+          echo $pythonLocation >> $GITHUB_PATH
       - uses: actions/setup-python@v3
         with:
           python-version: "3.6"

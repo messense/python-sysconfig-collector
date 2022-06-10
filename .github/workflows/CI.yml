@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: dbhi/qus/action@main
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: "3.10"
       - name: Set up Docker Buildx
@@ -51,31 +51,34 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: "pypy-3.7"
-      - uses: actions/setup-python@v2
+          architecture: x64
+      - uses: actions/setup-python@v3
         with:
           python-version: "pypy-3.8"
-      - uses: actions/setup-python@v2
+          architecture: x64
+      - uses: actions/setup-python@v3
         with:
           python-version: "pypy-3.9"
-      - uses: actions/setup-python@v2
+          architecture: x64
+      - uses: actions/setup-python@v3
         with:
           python-version: "3.6"
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: "3.7"
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: "3.8"
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: "3.9"
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: "3.10"
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: "3.11-dev"
       - name: Generate sysconfig.json
@@ -98,31 +101,34 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: "pypy-3.7"
-      - uses: actions/setup-python@v2
+          architecture: x64
+      - uses: actions/setup-python@v3
         with:
           python-version: "pypy-3.8"
-      - uses: actions/setup-python@v2
+          architecture: x64
+      - uses: actions/setup-python@v3
         with:
           python-version: "pypy-3.9"
-      - uses: actions/setup-python@v2
+          architecture: x64
+      - uses: actions/setup-python@v3
         with:
           python-version: "3.6"
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: "3.7"
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: "3.8"
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: "3.9"
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: "3.10"
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: "3.11-dev"
       - name: Generate sysconfig.json

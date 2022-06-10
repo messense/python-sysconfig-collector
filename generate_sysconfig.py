@@ -38,7 +38,9 @@ def main():
                             continue
                         # py.exe doesn't support finding pypy
                         command = [
-                            f"pypy3.{minor}",
+                            "cmd.exe",
+                            "/c",
+                            f"pypy3.{minor}.exe",
                             "get_interpreter_metadata.py",
                         ]
                     else:

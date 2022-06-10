@@ -105,6 +105,9 @@ jobs:
         with:
           python-version: "pypy-3.7"
           architecture: x64
+      - shell: bash
+        run: |
+          ls $pythonLocation
       - uses: actions/setup-python@v3
         with:
           python-version: "pypy-3.8"

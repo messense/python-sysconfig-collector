@@ -33,13 +33,20 @@ def main():
             for py_arch in py_arches:
                 if os == "windows":
                     if impl == "pypy":
+                        if py_arch == "32":
+                            # skip 32-bit pypy for now
+                            continue
                         # py.exe doesn't support finding pypy
-                        continue
-                    command = [
-                        "py",
-                        f"-3.{minor}-{py_arch}",
-                        "get_interpreter_metadata.py",
-                    ]
+                        command = [
+                            f"pypy3.{minor}",
+                            "get_interpreter_metadata.py",
+                        ]
+                    else:
+                        command = [
+                            "py",
+                            f"-3.{minor}-{py_arch}",
+                            "get_interpreter_metadata.py",
+                        ]
                     if py_arch == "32":
                         arch = "i686"
                     else:

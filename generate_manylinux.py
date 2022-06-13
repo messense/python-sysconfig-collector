@@ -64,7 +64,7 @@ def armv7l():
         "pypy3",
     ]
     cwd = os.getcwd()
-    sysconfig = {"armv7l": []}
+    sysconfig = {"armv7l": [], "armv6l": []}
     for python in pythons:
         command = [
             "docker",
@@ -87,6 +87,8 @@ def armv7l():
         for key in ["system", "platform"]:
             metadata.pop(key, None)
         sysconfig["armv7l"].append(metadata)
+        # armv6l metadata is the same as armv7l
+        sysconfig["armv6l"].append(metadata)
     return sysconfig
 
 

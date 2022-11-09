@@ -92,9 +92,46 @@ def armv7l():
     return sysconfig
 
 
+def conda_forge_ppc64le():
+    # PyPy is not available on ppc64le via manylinux; use conda-forge instead
+    docker_image = "conda-forge-ppc64le"
+    pythons = [
+        "pypy3.7",
+        "pypy3.8",
+        "pypy3.9",
+    ]
+    cwd = os.getcwd()
+    sysconfig = {"ppc64le": []}
+    for python in pythons:
+        command = [
+            "docker",
+            "run",
+            "--rm",
+            "-v",
+            f"{cwd}:/io",
+            "-w",
+            "/io",
+            docker_image,
+            f"/opt/{python}/bin/python",
+            "/io/get_interpreter_metadata.py",
+        ]
+        try:
+            metadata = subprocess.check_output(command).decode().strip()
+        except subprocess.CalledProcessError as exc:
+            print(exc.output, file=sys.stderr)
+            raise
+        metadata = json.loads(metadata.splitlines()[-1])
+        for key in ["system", "platform"]:
+            metadata.pop(key, None)
+        sysconfig["ppc64le"].append(metadata)
+    return sysconfig
+
+
 def main():
     well_known = manylinux()
-    well_known.update(armv7l())
+    for sysconfig in (armv7l(), conda_forge_ppc64le()):
+        for arch, metadatas in sysconfig.items():
+            well_known[arch].extend(metadatas)
     with open("sysconfig-linux.json", "w") as f:
         f.write(json.dumps(well_known, indent=2))
 

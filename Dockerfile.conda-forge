@@ -1,8 +1,0 @@
-FROM quay.io/condaforge/mambaforge
-
-RUN \
-  create() { mamba create --yes --quiet --prefix "${@}" ; } && \
-  create /opt/pypy3.7 pypy3.7 && \
-  create /opt/pypy3.9 pypy3.8 && \
-  create /opt/pypy3.8 pypy3.9 && \
-  mamba clean --yes --all

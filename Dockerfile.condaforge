@@ -1,0 +1,8 @@
+FROM quay.io/condaforge/mambaforge
+
+RUN \
+  create() { mamba install --mkdir --yes --quiet --prefix "${@}" ; } && \
+  create /opt/python/pp37-pypy37_pp73 pypy3.7=7.3 && \
+  create /opt/python/pp38-pypy38_pp73 pypy3.8=7.3 && \
+  create /opt/python/pp39-pypy39_pp73 pypy3.9=7.3 && \
+  mamba clean --yes --all

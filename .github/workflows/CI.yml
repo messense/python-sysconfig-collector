@@ -35,10 +35,10 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: Dockerfile.condaforge
+          file: Dockerfile.fedora
           platforms: linux/ppc64le
           load: true
-          tags: condaforge_ppc64le:latest
+          tags: fedora_ppc64le:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Generate sysconfig.json

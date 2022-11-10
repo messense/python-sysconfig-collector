@@ -92,15 +92,18 @@ def armv7l():
     return sysconfig
 
 
-def condaforge_ppc64le():
+def fedora_ppc64le():
+    pythons = [
+        "pypy3.7",
+        "pypy3.8",
+        "pypy3.9",
+    ]
     sysconfig = defaultdict(list)
     cwd = os.getcwd()
-    # PyPy is not available on ppc64le via manylinux; use conda-forge instead
+    # PyPy is not available on ppc64le via manylinux; use Fedora's instead
     for arch in ["ppc64le"]:
-        docker_image = f"condaforge_{arch}"
-        for ver in PY_VERS:
-            if not ver.startswith("pp"):
-                continue
+        docker_image = f"fedora_{arch}"
+        for python in pythons:
             command = [
                 "docker",
                 "run",
@@ -110,7 +113,7 @@ def condaforge_ppc64le():
                 "-w",
                 "/io",
                 docker_image,
-                f"/opt/python/{ver}/bin/python",
+               python,
                 "/io/get_interpreter_metadata.py",
             ]
             try:
@@ -127,7 +130,7 @@ def condaforge_ppc64le():
 
 def main():
     well_known = manylinux()
-    for sysconfig in (armv7l(), condaforge_ppc64le()):
+    for sysconfig in (armv7l(), fedora_ppc64le()):
         for arch, metadatas in sysconfig.items():
             well_known[arch].extend(metadatas)
     with open("sysconfig-linux.json", "w") as f:

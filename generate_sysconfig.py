@@ -5,7 +5,7 @@ from collections import defaultdict
 import subprocess
 
 MIN_MINOR_VER = 6
-MAX_MINOR_VER = 11
+MAX_MINOR_VER = 12
 
 PY_IMPLS = ["python", "pypy"]
 ARCH_ALIAS = {

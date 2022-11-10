@@ -100,8 +100,8 @@ def fedora_ppc64le():
     ]
     sysconfig = defaultdict(list)
     cwd = os.getcwd()
-    # PyPy is not available on ppc64le via manylinux; use Fedora's instead
-    for arch in ["ppc64le"]:
+    # PyPy is not available on ppc64le & s390x via manylinux => use Fedora's
+    for arch in ["ppc64le", "s390x"]:
         docker_image = f"fedora_{arch}"
         for python in pythons:
             command = [

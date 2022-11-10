@@ -41,6 +41,16 @@ jobs:
           tags: fedora_ppc64le:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Build s390x docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: Dockerfile.fedora
+          platforms: linux/s390x
+          load: true
+          tags: fedora_s390x:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       - name: Generate sysconfig.json
         run: |
           python3 generate_manylinux.py

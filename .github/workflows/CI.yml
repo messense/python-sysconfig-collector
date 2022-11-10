@@ -31,6 +31,16 @@ jobs:
           tags: python-armv7l:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Build ppc64le docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: Dockerfile.condaforge
+          platforms: linux/ppc64le
+          load: true
+          tags: condaforge_ppc64le:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       - name: Generate sysconfig.json
         run: |
           python3 generate_manylinux.py

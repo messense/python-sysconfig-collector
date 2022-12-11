@@ -55,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: dbhi/qus/action@main
+      - uses: docker/setup-qemu-action@v2
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
@@ -72,7 +72,7 @@ jobs:
           python3 generate_manylinux.py
           cat sysconfig-linux.json
       - name: Create Pull Request
-        if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
+        if: ${{ github.ref_name == 'main' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
         uses: peter-evans/create-pull-request@v4
         with:
           delete-branch: true

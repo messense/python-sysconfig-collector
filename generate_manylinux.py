@@ -80,14 +80,27 @@ def fedora():
                 "-w",
                 "/io",
                 docker_image,
-               python,
+                python,
                 "/io/get_interpreter_metadata.py",
             ]
             try:
                 metadata = subprocess.check_output(command).decode().strip()
             except subprocess.CalledProcessError as exc:
-                print(exc.output.decode(), file=sys.stderr)
-                continue
+                print("Error: " + exc.output.decode(), file=sys.stderr)
+                if arch == "aarch64" and python == "ppy3.9":
+                    # qemu-aarch64: /usr/bin/pypy3.9: Invalid note in PT_GNU_PROPERTY
+                    # hardcode it for now
+                    metadata = {
+                        "major": 3,
+                        "minor": 9,
+                        "abiflags": "",
+                        "interpreter": "pypy",
+                        "ext_suffix": ".pypy39-pp73-aarch64-linux-gnu.so",
+                        "abi_tag": "pp73",
+                        "pointer_width": 64,
+                    }
+                else:
+                    continue
             metadata = json.loads(metadata.splitlines()[-1])
             for key in ["system", "platform"]:
                 metadata.pop(key, None)

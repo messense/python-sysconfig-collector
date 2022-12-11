@@ -87,7 +87,7 @@ def fedora():
                 metadata = subprocess.check_output(command).decode().strip()
             except subprocess.CalledProcessError as exc:
                 print("Error: " + exc.output.decode(), file=sys.stderr)
-                if arch == "aarch64" and python == "ppy3.9":
+                if arch == "aarch64" and python == "pypy3.9":
                     # qemu-aarch64: /usr/bin/pypy3.9: Invalid note in PT_GNU_PROPERTY
                     # hardcode it for now
                     metadata = {
@@ -101,7 +101,8 @@ def fedora():
                     }
                 else:
                     continue
-            metadata = json.loads(metadata.splitlines()[-1])
+            if isinstance(metadata, str):
+                metadata = json.loads(metadata.splitlines()[-1])
             for key in ["system", "platform"]:
                 metadata.pop(key, None)
             sysconfig[arch].append(metadata)

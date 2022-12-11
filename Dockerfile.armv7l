@@ -1,0 +1,5 @@
+FROM arm32v7/fedora:36
+
+RUN dnf install --forcearch armv7hl -y \
+  python3.6 python3.7 python3.8 python3.9 python3.10 python3.11 \
+  pypy3.7 pypy3.8 pypy3.9

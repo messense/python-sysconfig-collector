@@ -471,10 +471,10 @@
     },
     {
       "major": 3,
-      "minor": 8,
+      "minor": 9,
       "abiflags": "",
       "interpreter": "pypy",
-      "ext_suffix": ".pypy38-pp73-arm-linux-gnueabihf.so",
+      "ext_suffix": ".pypy39-pp73-arm-linux-gnueabihf.so",
       "abi_tag": "pp73",
       "pointer_width": 32
     }
@@ -536,10 +536,10 @@
     },
     {
       "major": 3,
-      "minor": 8,
+      "minor": 9,
       "abiflags": "",
       "interpreter": "pypy",
-      "ext_suffix": ".pypy38-pp73-arm-linux-gnueabihf.so",
+      "ext_suffix": ".pypy39-pp73-arm-linux-gnueabihf.so",
       "abi_tag": "pp73",
       "pointer_width": 32
     }

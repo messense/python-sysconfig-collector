@@ -5,7 +5,7 @@ from collections import defaultdict
 import subprocess
 
 
-ARCHES = ["x86_64", "i686", "aarch64"]
+ARCHES = ["i686"]
 PY_VERS = [
     "cp36-cp36m",
     "cp37-cp37m",
@@ -68,7 +68,7 @@ def fedora():
     sysconfig = defaultdict(list)
     cwd = os.getcwd()
     # PyPy is not available on ppc64le & s390x via manylinux => use Fedora's
-    for arch in ["armv7l", "ppc64le", "s390x"]:
+    for arch in ["x86_64", "aarch64", "armv7l", "ppc64le", "s390x"]:
         docker_image = f"fedora_{arch}"
         for python in pythons:
             command = [

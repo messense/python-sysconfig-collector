@@ -86,8 +86,8 @@ def fedora():
             try:
                 metadata = subprocess.check_output(command).decode().strip()
             except subprocess.CalledProcessError as exc:
-                print(exc.output, file=sys.stderr)
-                raise
+                print(exc.output.decode(), file=sys.stderr)
+                continue
             metadata = json.loads(metadata.splitlines()[-1])
             for key in ["system", "platform"]:
                 metadata.pop(key, None)

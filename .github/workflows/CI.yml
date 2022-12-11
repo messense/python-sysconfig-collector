@@ -16,6 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      # For building armv7l docker image
+      - name: Set Swap Space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 10
       - uses: dbhi/qus/action@main
       - uses: actions/setup-python@v4
         with:
@@ -28,14 +33,13 @@ jobs:
           context: .
           platforms: linux/arm/v7
           load: true
-          tags: python-armv7l:latest
+          tags: fedora_armv7l:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Build ppc64le docker image
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: Dockerfile.fedora
           platforms: linux/ppc64le
           load: true
           tags: fedora_ppc64le:latest
@@ -45,7 +49,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: Dockerfile.fedora
           platforms: linux/s390x
           load: true
           tags: fedora_s390x:latest

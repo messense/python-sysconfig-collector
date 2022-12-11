@@ -1,3 +1,0 @@
-FROM fedora:36
-
-RUN dnf install -y pypy3.7 pypy3.8 pypy3.9

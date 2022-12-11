@@ -5,7 +5,7 @@ from collections import defaultdict
 import subprocess
 
 
-ARCHES = ["x86_64", "i686", "aarch64", "ppc64le", "s390x"]
+ARCHES = ["x86_64", "i686", "aarch64"]
 PY_VERS = [
     "cp36-cp36m",
     "cp37-cp37m",
@@ -52,8 +52,7 @@ def manylinux():
     return well_known
 
 
-def armv7l():
-    docker_image = "python-armv7l"
+def fedora():
     pythons = [
         "python3.6",
         "python3.7",
@@ -61,39 +60,7 @@ def armv7l():
         "python3.9",
         "python3.10",
         "python3.11",
-        "pypy3",
-    ]
-    cwd = os.getcwd()
-    sysconfig = {"armv7l": [], "armv6l": []}
-    for python in pythons:
-        command = [
-            "docker",
-            "run",
-            "--rm",
-            "-v",
-            f"{cwd}:/io",
-            "-w",
-            "/io",
-            docker_image,
-            python,
-            "/io/get_interpreter_metadata.py",
-        ]
-        try:
-            metadata = subprocess.check_output(command).decode().strip()
-        except subprocess.CalledProcessError as exc:
-            print(exc.output, file=sys.stderr)
-            raise
-        metadata = json.loads(metadata.splitlines()[-1])
-        for key in ["system", "platform"]:
-            metadata.pop(key, None)
-        sysconfig["armv7l"].append(metadata)
-        # armv6l metadata is the same as armv7l
-        sysconfig["armv6l"].append(metadata)
-    return sysconfig
-
-
-def fedora_ppc64le():
-    pythons = [
+        "python3.12",
         "pypy3.7",
         "pypy3.8",
         "pypy3.9",
@@ -101,7 +68,7 @@ def fedora_ppc64le():
     sysconfig = defaultdict(list)
     cwd = os.getcwd()
     # PyPy is not available on ppc64le & s390x via manylinux => use Fedora's
-    for arch in ["ppc64le", "s390x"]:
+    for arch in ["armv7l", "ppc64le", "s390x"]:
         docker_image = f"fedora_{arch}"
         for python in pythons:
             command = [
@@ -119,20 +86,24 @@ def fedora_ppc64le():
             try:
                 metadata = subprocess.check_output(command).decode().strip()
             except subprocess.CalledProcessError as exc:
-                print(exc.output, file=sys.stderr)
-                raise
+                print(exc.output.decode(), file=sys.stderr)
+                continue
             metadata = json.loads(metadata.splitlines()[-1])
             for key in ["system", "platform"]:
                 metadata.pop(key, None)
             sysconfig[arch].append(metadata)
+            if arch == "armv7l":
+                # armv6l metadata is the same as armv7l
+                sysconfig["armv6l"].append(metadata)
     return sysconfig
 
 
 def main():
     well_known = manylinux()
-    for sysconfig in (armv7l(), fedora_ppc64le()):
-        for arch, metadatas in sysconfig.items():
-            well_known[arch].extend(metadatas)
+    # Merge sysconfig from Fedora for architectures lacking manylinux docker image
+    for arch, metadatas in fedora().items():
+        well_known[arch].extend(metadatas)
+
     with open("sysconfig-linux.json", "w") as f:
         f.write(json.dumps(well_known, indent=2))
 

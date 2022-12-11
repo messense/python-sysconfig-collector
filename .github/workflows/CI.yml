@@ -16,27 +16,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      # For building armv7l docker image
-      - name: Set Swap Space
-        uses: pierotofy/set-swap-space@master
-        with:
-          swap-size-gb: 10
       - uses: dbhi/qus/action@main
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      - name: Build armv7l docker image
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: Dockerfile.armv7l
-          platforms: linux/arm/v7
-          load: true
-          tags: fedora_armv7l:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+      # Build out of memory on GitHub Actions
+      # - name: Build armv7l docker image
+      #   uses: docker/build-push-action@v3
+      #   with:
+      #     context: .
+      #     file: Dockerfile.armv7l
+      #     platforms: linux/arm/v7
+      #     load: true
+      #     tags: fedora_armv7l:latest
+      #     cache-from: type=gha
+      #     cache-to: type=gha,mode=max
+      - name: Pull armv7l docker image
+        run: |
+          set -ex
+          docker pull ghcr.io/messense/python-sysconfig-collector:fedora_armv7l
+          docker tag ghcr.io/messense/python-sysconfig-collector:fedora_armv7l fedora_armv7l:latest
       - name: Build ppc64le docker image
         uses: docker/build-push-action@v3
         with:

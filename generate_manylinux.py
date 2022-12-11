@@ -5,7 +5,7 @@ from collections import defaultdict
 import subprocess
 
 
-ARCHES = ["x86_64", "i686", "aarch64", "ppc64le", "s390x"]
+ARCHES = ["x86_64", "i686", "aarch64"]
 PY_VERS = [
     "cp36-cp36m",
     "cp37-cp37m",

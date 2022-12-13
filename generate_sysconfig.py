@@ -71,10 +71,11 @@ def main():
                 # on macOS the sysconfig we care about are the same on x86_64 and aarch64
                 # so we can just duplicate it
                 #
-                # Note that pypy doesn't support aarch64 macOS yet
-                if os == "macos" and impl != "pypy":
+                # Note that only pypy 3.8+ supports aarch64 macOS
+                if os == "macos":
                     if arch == "x86_64":
-                        well_known["aarch64"].append(metadata)
+                        if impl != "pypy" or (impl == "pypy" and minor >= 8):
+                            well_known["aarch64"].append(metadata)
                     elif arch == "aarch64":
                         well_known["x86_64"].append(metadata)
                 # Windows aarch64 uses `win_arm64` instead of `win_amd64` in ext_suffix

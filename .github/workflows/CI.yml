@@ -125,7 +125,7 @@ jobs:
           python3 generate_sysconfig.py
           cat sysconfig-macos.json
       - name: Create Pull Request
-        if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
+        if: ${{ github.ref_name == 'main' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
         uses: peter-evans/create-pull-request@v4
         with:
           delete-branch: true
@@ -193,7 +193,7 @@ jobs:
           python3 generate_sysconfig.py
           cat sysconfig-win*.json
       - name: Create Pull Request
-        if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
+        if: ${{ github.ref_name == 'main' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
         uses: peter-evans/create-pull-request@v4
         with:
           delete-branch: true
